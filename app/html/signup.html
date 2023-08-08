@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sign Up Page</title>
+
+  <link rel="stylesheet" href="/static/css/signup.css">
+
+  <!--to get icons from google-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!--plugin for script-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+
+<body>
+  <script src="/static/js/signup.js">  </script>
+
+
+  <div class="container">
+    <h2>Create your account</h2>
+
+    <!--To display error messages from fastapi-->
+    <div class="success">{%if success%}{{success}}{%endif%}</div>
+    <div class="error">{%if error%}{{error}}{%endif%}</div>
+
+
+    <!--  signup form  -->
+    <form action="/signup" method="post">
+
+      <!--username field-->
+      <div class="input-container">
+        <i class="material-icons" style="font-size:40px">person</i>
+        <input type="text" placeholder="Username" name="username" id="name" required>
+      </div>
+
+      <!--mail field-->
+      <div class="input-container">
+        <i class="material-icons" style="font-size:40px">mail</i>
+        <input type="email" placeholder="Email" name="email" id="email" required>
+      </div>
+
+      <!--password field-->
+      <div class="input-container">
+        <i class="material-icons" style="font-size:40px">key</i>
+        <!--<input type="password" placeholder="Password" name="password" id="password" oninput="checkPasswordStrength()" minlength="8" required>-->
+        <input type="password" id="password" name="password" placeholder="Password" oninput="checkPasswordStrength()">
+        <span onclick="myFunction()">
+          <i id="password_hide1" class="fa fa-eye" style="font-size:20px; padding-top: 8px;"></i>
+          <!--eye symbol icons-->
+          <i id="password_hide2" class="fa fa-eye-slash" style="font-size:20px; padding-top: 8px;"></i>
+        </span>
+        <ul class="password-conditions">
+          <li class="length-condition">
+            <span class="checkmark">&#10004;</span>Minimum 6 characters
+          </li>
+          <li class="uppercase-condition">
+            <span class="checkmark">&#10004;</span>At least one uppercase letter
+          </li>
+          <li class="lowercase-condition">
+            <span class="checkmark">&#10004;</span> At least one lowercase letter
+          </li>
+          <li class="number-condition">
+            <span class="checkmark">&#10004;</span>At least one number
+          </li>
+        </ul>
+      </div>
+
+      <!--confirm password-->
+      <div class="input-container">
+        <i class="material-icons" style="font-size:40px">key</i>
+        <input type="password" placeholder="Confirm Password" name="confirm_password" id="confirm_password" required>
+        <span id="password_match_message"></span>
+        <span onclick="myFunction1()">
+          <i id="confirm_password_hide1" class="fa fa-eye" style="font-size:20px; padding-top: 8px;"></i>
+          <i id="confirm_password_hide2" class="fa fa-eye-slash" style="font-size:20px; padding-top: 8px"></i>
+        </span>
+      </div>
+
+      <a href="/login"><button class="signup-btn">Sign up</button></a>
+
+      <span class="account">
+        <span style="font-size:15px;font-weight: normal;">Have an account?</span><a href="/login">Login now</a>
+      </span>
+    </form>
+  </div>
+
+
+</body>
+
+</html>

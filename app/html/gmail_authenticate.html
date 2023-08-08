@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>One Time Password</title>
+    <link rel="stylesheet" href="/static/css/gmail_authenticate.css">
+</head>
+
+<body>
+
+    <form action="/gmail_authenticate" method="post">
+        <div class="container">
+            <h2>Check your email</h2>
+            <div class="error">{%if otp_error%}{{otp_error}}{%endif%}</div> <!--Incorrect otp notification-->
+            <p>We sent a One Time Password to your email</p>
+
+            <label for="OTP">OTP</label>
+            <input type="text" id="otp" name="user_otp" placeholder="Enter six digit pin" required>
+            <button type="submit">Submit</button>
+
+            <p class="back-to-login"><a href="/login">Back to Login</a></p>
+        </div>
+    </form>
+</body>
+
+</html>

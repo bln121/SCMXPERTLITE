@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>User Management</title>
+    <link rel="stylesheet" href="/static/css/user_management.css">
+</head>
+
+<body>
+    <h1>User Management</h1>
+    <form action="/user_manage" method="post">
+        <div class="container">
+            <h2>Update User Role</h2>
+            <div class="success">{%if success%}{{success}}{%endif%}</div>
+            <div class="error">{%if message%}{{message}}{%endif%}</div>
+            <p>Enter user email and role to change role of the user.</p>
+            <div class="input-field">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-field">
+                <label for="role" style="padding-right:41px">Role</label>
+                <input type="text" name="user_role" required>
+            </div>
+            <button type="submit">Update</button>
+
+            <p class="back-to-dashboard"><a href="/dash1">Back to Dashboard</a></p>
+        </div>
+    </form>
+</body>
+
+</html>

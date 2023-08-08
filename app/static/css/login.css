@@ -1,0 +1,157 @@
+body {
+  font-family: Arial, sans-serif;
+  background-image: url("/static/desktop-wallpaper-freight-freight-freight-train-and-freight-background-logistics.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 100px;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 400px;
+  margin: -35px auto;
+  background-color: #3888cdba;
+  /* #ffffff */
+  padding: 20px 25px 20px 0px;
+  /*  border-radius: 5px; */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #67abf1;
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+
+}
+
+h1 {
+  margin-top: 0px;
+  color: greenyellow;
+  font-family: Roboto;
+  font-weight: bolder;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+
+h2 {
+  color: blue;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: Roboto;
+  /* margin-bottom: 40px; */
+}
+
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 60%;
+  padding: 10px;
+  display: flex;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+/* 
+input[type="submit"] {
+  width: 30%;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #0080ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  transform: translate(170px);
+
+}
+
+input[type="submit"]:hover {
+
+  background-color: #0068cf;
+
+} */
+
+.login-btn {
+  border: 1px solid #00cdff96;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-left: 172px;
+  background-color: #4caf50;
+  color: white;
+  width: 103px;
+  height: 38px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 6px;
+  /* transform: translate(170px); */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #0099ff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+
+
+.input-container {
+  display: -ms-flexbox;
+  /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+  margin-left: 40px;
+}
+
+#hide1 {
+  display: none;
+}
+
+a {
+  color: blue;
+  text-decoration: None;
+  /* margin-left:45px; */
+  font-size: 20px;
+}
+
+
+.account {
+  margin-left: 78px;
+  margin-top: 15px;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  font-family: Roboto;
+}
+
+.forgetpswd {
+  color: blue;
+  margin-left: 170px;
+  font-size: large;
+  font-family: robanto;
+  text-decoration: None;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+
+}
+
+.captch {
+  margin-left: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}

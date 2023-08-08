@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>my shipment page</title>
+    <link rel='stylesheet' href="/static/css/myshipment.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <form action="/myshipment" method="get">
+        <div class="menu-wrapper">
+            <div class="sidebar-header">
+                <div class="sideBar">
+                    <div><img src="/static/exf-removebg-preview.png"></div>
+                    <ul>
+                        <a href="/dash1">
+                            <li><i class="fas fa-chart-bar"></i><label>Dashboard</label></li>
+                        </a>
+                        <a href="/myaccount">
+                            <li><i class="fas fa-user"></i><label>My Account</label></li>
+                        </a>
+                        <a href="/shipment">
+                            <li><i class="fas fa fa-truck"></i><label> New Shipment</label></li>
+                        </a>
+                        <a href="/myshipment">
+                            <li><i class="fa fa-book" aria-hidden="true"></i></i><label> My
+                                    Shipment</label>
+                        </a>
+                        </li>
+                        <a href="/data_stream">
+                            <li><i class="fas fa fa-tv"></i><label>Device Data</label></li>
+                        </a>
+                        <a href="/logout">
+                            <li><i class="fa fa-sign-out"></i><label> Log out</label></li>
+                        </a>
+                    </ul> <span class="cross-icon"><i class="fas fa-times"></i></span>
+                </div>
+                <div class="backdrop"></div>
+                <div class="content">
+                    <header>
+                        <div class="menu-button" id='desktop'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="menu-button" id='mobile'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <h1>Hello, {%if user%}{{user["username"]}}{% endif %}. Welcome to SCMXPertLite</h1>
+                        <h1></h1>
+                    </header>
+                    <div class="container-img">
+                        <div class="container-img-data">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Shipment Number</th>
+                                        <th>Container Number</th>
+                                        <th>Route details</th>
+                                        <th>Goods type</th>
+                                        <th>Device name</th>
+                                        <th>Delivery_date</th>
+                                        <th>po Number</th>
+                                        <th>Delivery Number</th>
+                                        <th>NDC Number</th>
+                                        <th>Batch id</th>
+                                        <th>Serial Number</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td>hello</td>
+                                    </tr> -->
+
+                                    {% for item in shipment_data %}
+                                    <tr>
+                                        <td data-label="Shipment_Number">{{ item.shipment_number }}</td>
+                                        <td data-label="ContainerNumber">{{ item.container_number }}</td>
+                                        <td data-label="Route details">{{ item.route_details }}</td>
+                                        <td data-label="Goods type">{{ item.goods_type }}</td>
+                                        <td data-label="Device name">{{ item.device_name }}</td>
+                                        <td data-label="Delivery_date">{{ item.delivery_date }}</td>
+                                        <td data-label="po Number">{{ item.po_number }}</td>
+                                        <td data-label="Delivery Number">{{ item.delivery_no }}</td>
+                                        <td data-label="NDC Number">{{ item.NDC_number }}</td>
+                                        <td data-label="Batch id">{{ item.Batch_id }}</td>
+                                        <td data-label="Serial Number">{{ item.serial_number }}</td>
+                                    </tr>
+                                    {% endfor %}
+
+
+                                </tbody>
+                            </table>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+    </form>
+    <!--Script code for extending the menu bar-->
+    <script>
+        $("#mobile").click(function () {
+            $('.sideBar').addClass("showMenu");
+            $('.sideBar').removeClass("widthChange");
+            $('.backdrop').addClass('showBackdrop')
+        });
+        $(".cross-icon").click(function () {
+            $('.sideBar').removeClass("showMenu");
+            $('.backdrop').removeClass('showBackdrop')
+        });
+        $(".backdrop").click(function () {
+            $('.sideBar').removeClass("showMenu");
+            $('.backdrop').removeClass('showBackdrop')
+        });
+        $("#desktop").click(function () {
+            $('li label').toggleClass("hideMenuList");
+            $('.sideBar').toggleClass("widthChange");
+        });
+        $('li').click(function () {
+            $('li').removeClass();
+            $(this).addClass('selected');
+            $('.sideBar').removeClass("showMenu");
+        });
+
+
+
+    </script>
+</body>
+
+</html>

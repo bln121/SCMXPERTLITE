@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>New Password</title>
+    <link rel="stylesheet" href="/static/css/new_pswd.css">
+    <script src="/static/js/new_pswd.js">  </script>
+    <!--to get icons from google-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--plugin for script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <h1>Reset your password</h1>
+    <form action="/new_pswd" method="post">
+        <div class="container">
+            <h2>Set new password</h2>
+            <!--Error message display-->
+            <div class="error">{%if error_msg%}{{error_msg}}{%endif%}</div>
+            <div class="success">{%if updated_msg%}{{updated_msg}}{%endif%}</div>
+            <!-- <p>Your new password must be different to previously used passwords.</p> -->
+            <!-- New Password -->
+            <label for="new password">New password</label>
+            <div class="input-container">
+                <input type="password" id="new_password" name="new_password" placeholder="New Password"
+                    oninput="checkPasswordStrength()" required>
+                <span onclick="myFunction()">
+                    <i id="password_hide1" class="fa fa-eye" style="font-size:20px; padding-top: 8px;"></i>
+                    <!--eye symbol icons-->
+                    <i id="password_hide2" class="fa fa-eye-slash" style="font-size:20px; padding-top: 8px;"></i>
+                </span>
+                <!-- Password conditions check-->
+                <ul class="password-conditions">
+                    <li class="length-condition">
+                        <span class="checkmark">&#10004;</span>Minimum 8 characters
+                    </li>
+                    <li class="uppercase-condition">
+                        <span class="checkmark">&#10004;</span>At least one uppercase letter
+                    </li>
+                    <li class="lowercase-condition">
+                        <span class="checkmark">&#10004;</span> At least one lowercase letter
+                    </li>
+                    <li class="number-condition">
+                        <span class="checkmark">&#10004;</span>At least one number
+                    </li>
+                </ul>
+            </div>
+            <label for="confirm password">Confirm Password</label>
+            <div class="input-container">
+                <input type="password" placeholder="Confirm Password" name="confirm_password" id="confirm_password"
+                    required>
+
+
+                <!-- <span id="password_match_message"></span> -->
+                <span onclick="myFunction1()">
+                    <i id="confirm_password_hide1" class="fa fa-eye" style="font-size:20px; padding-top: 8px;"></i>
+                    <i id="confirm_password_hide2" class="fa fa-eye-slash" style="font-size:20px; padding-top: 8px"></i>
+                </span>
+            </div>
+            <!-- <input type="password" id="confirm_password" name="confirm password" required> -->
+            <button type="submit">Reset Password</button>
+
+            <p class="back-to-login"><a href="/login">Back to Login</a></p>
+        </div>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>New Shipment page</title>
+    <link rel='stylesheet' href="/static/css/shipment.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/static/js/shipment.js"></script>
+</head>
+
+
+<body>
+
+    <div class="menu-wrapper">
+        <div class="sidebar-header">
+            <div class="sideBar">
+                <div><img src="/static/exf-removebg-preview.png"></div>
+                <ul>
+                    <a href="/dash1">
+                        <li><i class="fas fa-chart-bar"></i><label>Dashboard</label></li>
+                    </a>
+                    <a href="/myaccount">
+                        <li><i class="fas fa-user"></i><label>My Account</label></li>
+                    </a>
+                    <a href="/shipment">
+                        <li><i class="fas fa fa-truck"></i><label> New Shipment</label></li>
+                    </a>
+                    <a href="myshipment">
+                        <li><i class="fa fa-book" aria-hidden="true"></i></i><label> My
+                                Shipment</label></li>
+                    </a>
+                    <a href="/data_stream">
+                        <li><i class="fas fa fa-tv"></i><label>Device Data</label></li>
+                    </a>
+                    <a href="/logout">
+                        <li><i class="fa fa-sign-out"></i><label>Log out</label></li>
+                    </a>
+                </ul> <span class="cross-icon"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="backdrop"></div>
+            <div class="content">
+                <header>
+                    <div class="menu-button" id='desktop'>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+
+                    <h1>CREATE NEW SHIPMENT</h1>
+                    <h1></h1>
+                </header>
+
+                <div class=" container-bg">
+                    <div class="form-container">
+                        <form id="myForm" action="/shipment" method="post">
+                            <div class="error">{%if message%}{{message}}{%endif%}</div>
+                            <div class="colums">
+                                <div class="item">
+                                    <label for="shipmentno" class="label"> Shipment Number<span>*</span></label>
+                                    <input id="shipmentno" type="number" name="shipment_number"
+                                        placeholder="Enter Shipment Number" required />
+                                </div>
+                                <div class="item">
+                                    <label for="containerno" class="label"> Container Number<span>*</span></label>
+                                    <input id="containerno" type="number" name="container_number"
+                                        placeholder="Enter Container Number" required />
+                                </div>
+                                <div class="item">
+                                    <label for="routedetails" class="label">Route details<span>*</span></label>
+                                    <select id="routedetails" name="route_details" placeholder="Select route" required>
+                                        <option value="route">Select route</option>
+                                        <option value="Tirupati">Tirupati</option>
+                                        <option value="Renigunta">Renigunta</option>
+                                        <option value="Chittoor">Chittoor</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label for="Goods" class="label">Goods Type<span>*</span></label>
+                                    <select id="Goods" name="goods_type" placeholder="Select Goods" required>
+                                        <option value="Goods">Select Goods</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Medical">Medical</option>
+                                        <option value="Cosmetics">Cosmetics</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label for="device" class="label">Select Device<span>*</span></label>
+                                    <select id="device" name="device_name" placeholder="Select Device" required>
+                                        <option value="device">Select Device</option>
+                                        <option value="515">515</option>
+                                        <option value="516">516</option>
+                                        <option value="517">517</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label for="delivery-date" class="label">Expected Delivery
+                                        Date<span>*</span></label>
+                                    <!-- <input id="delivery-date" type="tel" name="delivery_date"
+                                        placeholder="Expected delivery date" onclick="del(this)" required /> -->
+                                    <input type="date" id="delivery_date" placeholder="Expected delivery date"
+                                        name="delivery_date" required>
+
+                                </div>
+
+
+                                <div class="item">
+                                    <label for="PO Number" class="label">PO Number<span>*</span></label>
+                                    <input id="POno" type="number" name="po_number" placeholder="Enter PO Number"
+                                        required />
+                                </div>
+                                <div class="item">
+                                    <label for="deliveryno" class="label"> Delivery Number<span>*</span></label>
+                                    <input id="deliveryno" type="number" name="delivery_number"
+                                        placeholder="Enter Delivery Number" required />
+                                </div>
+                                <div class="item">
+                                    <label for="NDCno" class="label">NDC Number<span>*</span></label>
+                                    <input id="NDCno" type="number" name="NDC_number" placeholder="Enter NDC Number"
+                                        required />
+                                </div>
+                                <div class="item">
+                                    <label for="batchid" class="label">Batch ID<span>*</span></label>
+                                    <input id="batchid" type="number" name="Batch_id" placeholder="Enter Batch ID"
+                                        required />
+                                </div>
+                                <div class="item">
+                                    <label for="serialno" class="label">Serial Number of Goods<span>*</span></label>
+                                    <input id="serialno" type="number" name="serial_number"
+                                        placeholder="Enter Serial number of Goods" required />
+                                </div>
+                                <div class="item">
+                                    <label for="shipment" class="label">Shipment Description</label>
+                                    <textarea id="shipmentdesc" name="shipmentdesc" placeholder="Shipment Description"
+                                        style="height:75px; width:450px"></textarea>
+                                </div>
+                                <div>
+                                    <input type="submit" value="submit" name="submit" class="button1">
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        $(".cross-icon").click(function () {
+            $('.sideBar').removeClass("showMenu");
+            $('.backdrop').removeClass('showBackdrop')
+        });
+        $(".backdrop").click(function () {
+            $('.sideBar').removeClass("showMenu");
+            $('.backdrop').removeClass('showBackdrop')
+        });
+        $("#desktop").click(function () {
+            $('li label').toggleClass("hideMenuList");
+            $('.sideBar').toggleClass("widthChange");
+        });
+        $('li').click(function () {
+            $('li').removeClass();
+            $(this).addClass('selected');
+            $('.sideBar').removeClass("showMenu");
+        });</script>
+
+</body>
+
+</html>

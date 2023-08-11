@@ -1,10 +1,17 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 class User(BaseModel):
     username: str
     hashed_password: str
 
+
+class SignupData(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+    confirm_password: str
+    Role: str
 
 
 class Shipment(BaseModel):

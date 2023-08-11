@@ -61,6 +61,15 @@ def hash_password(password: str):
 def verify_password(password: str, hashed_password: str):
     return pwd_context.verify(password, hashed_password)
 
+
+'''
+    HS256 (HMAC-SHA256) is a widely used symmetric encryption algorithm that falls under the category of hash-based 
+    message authentication codes (HMAC). It's primarily used for creating digital signatures and verifying the integrity 
+    and authenticity of data.
+'''
+
+
+
 #Fetches data from the login user and stores data 
 class LoginForm:
     def __init__(self, request: Request):
@@ -86,25 +95,25 @@ class LoginForm:
         return False  
      
 
-
+#OAuth2PasswordBearerWithCookie in herits OAuth2 parent class
 class OAuth2PasswordBearerWithCookie(OAuth2):
     def __init__(
         self,
-        tokenUrl: str,
-        scheme_name: Optional[str] = None,
-        scopes: Optional[Dict[str, str]] = None,
+        tokenUrl: str, #A required string parameter representing the URL where the token can be obtained.
+        scheme_name: Optional[str] = None, #name of the authentication scheme.
+        scopes: Optional[Dict[str, str]] = None, # dictionary parameter representing the scopes associated with the authentication.
         description: Optional[str] = None,
-        auto_error: bool = True,
+        auto_error: bool = True,  # A boolean parameter with a default value of True. It determines whether errors related to authentication should be raised automatically.
     ):
         if not scopes:
             scopes = {}
-        flows = OAuthFlowsModel(password={"tokenUrl": tokenUrl, "scopes": scopes})
+        flows = OAuthFlowsModel(password={"tokenUrl": tokenUrl, "scopes": scopes})#Creating instance of OAuthFlowsModel
         super().__init__(
             flows=flows,
             scheme_name=scheme_name,
             description=description,
             auto_error=auto_error,
-        )
+        )#It passes the defined parameters (flows, scheme_name, description, and auto_error) to the parent class constructor to initialize the inherited properties and behavior.
 
     async def __call__(self, request: Request) -> Optional[str]:
         authorization: str = request.cookies.get(SETTING.COOKIE_NAME)
@@ -120,12 +129,12 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
         return param
 
 
-oauth2_schema = OAuth2PasswordBearerWithCookie(tokenUrl="token")
+oauth2_schema = OAuth2PasswordBearerWithCookie(tokenUrl="token")#t allows you to create instances of this class with specific configurations for handling OAuth2-based authentication with cookies.
 
 
 #To create access token
 
-def create_access_token(data: Dict) -> str:#data contains user's email
+def create_access_token(data: Dict) -> str:#data contains user's data which is bought from shipment_users
     to_encode = data.copy()
     expire = dt.datetime.utcnow() + dt.timedelta(minutes=SETTING.ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
@@ -176,6 +185,12 @@ def decode_token(token: str) -> User:
     user = get_user(username)
     return user
 
+'''
+    A cookie is a small piece of data that a web server sends to a user's web browser. The browser stores this data and 
+    includes it in subsequent requests back to the server. Cookies are used to remember user-specific information or to 
+    track user activity across different pages and sessions on a website. 
+'''
+
 
 def get_current_user_from_token(token: str = Depends(oauth2_schema)) -> User:
     #   Get the current user from the cookies in a request.
@@ -196,6 +211,13 @@ def get_current_user_from_cookie(request: Request) -> User:
 def login_for_access_token(
     response: Response, form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Dict[str, str]:
+    '''
+
+    form_data: OAuth2PasswordRequestForm = Depends(): This parameter is of type OAuth2PasswordRequestForm, 
+    which presumably holds the user's login credentials. It's being assigned a default value by calling Depends(), 
+    which is a FastAPI function used to declare dependencies. This suggests that this function might be using FastAPI's 
+    dependency injection mechanism to automatically populate form_data with the appropriate values.
+'''
     # Authenticate the user with the provided credentials
     user = authenticate_user(form_data.login_user, form_data.login_password)
     try:
@@ -206,9 +228,11 @@ def login_for_access_token(
             )
 
         # Create an access token for the authenticated user
+        #here I am using user's email to create access token
         access_token = create_access_token(data={"username": user["email"]})
         #print(access_token)
-        # Set an HttpOnly cookie in the response. `httponly=True` prevents
+
+        # httponly is set to True, it means that the cookie can only be accessed and modified by the server, and it cannot be accessed by client-side scripts (e.g., JavaScript).
         response.set_cookie(
             key=SETTING.COOKIE_NAME, value=f"Bearer {access_token}", httponly=True
         )

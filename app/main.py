@@ -30,12 +30,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 
-class SignupData(BaseModel):
-    username: str
-    email: EmailStr
-    password: str
-    confirm_password: str
-    Role: str
+
 
 
 
@@ -44,7 +39,6 @@ async def redirect_to_login(request: Request, exc: HTTPException):
     if exc.status_code == 401:
         return HTMLResponse("<script>window.location.href = '/';</script>")
     raise exc
-
 
 
 
@@ -58,9 +52,9 @@ app.include_router(forgetpswd)
 
 
 
-@app.get("/signup")
-async def get_signup(request: Request):
-    return templates.TemplateResponse("signup.html",{"request":request})
+# @app.get("/signup")
+# async def get_signup(request: Request):
+#     return templates.TemplateResponse("signup.html",{"request":request})
 
 @app.get("/gmail_authenticate")
 async def gmail_authentication(request: Request):

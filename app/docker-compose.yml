@@ -1,0 +1,60 @@
+version: '3'
+#The services section is where you define the individual containers (services) that will make up your application.
+services:
+  app:
+    image: app_image:latest
+    ports:
+      - "8000:8000"
+      #networks that will be used to connect your services. Networks allow containers to communicate with each other using their service names as hostnames
+    networks:
+      - scmxpertlite_network
+
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    ports:
+      - "2181:2181"
+    depends_on:
+      - app
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - scmxpertlite_network
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_HEAP_OPTS=-Xmx1G
+    networks:
+      - scmxpertlite_network
+
+  server:
+    image: server_image:latest
+    ports:
+      - "23532:23532"
+    depends_on:
+      - kafka
+    networks:
+      - scmxpertlite_network
+
+  producer:
+    image: producer_image:latest
+    depends_on:
+      - server
+    networks:
+      - scmxpertlite_network
+
+  consumer:
+    image: consumer_image:latest
+    depends_on:
+      - producer
+    networks:
+      - scmxpertlite_network
+
+networks:
+  scmxpertlite_network:

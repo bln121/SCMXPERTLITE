@@ -7,7 +7,7 @@ services:
       - "8000:8000"
       #networks that will be used to connect your services. Networks allow containers to communicate with each other using their service names as hostnames
     networks:
-      - scmxpertlite_network
+      - scm_network
 
   zookeeper:
     image: 'bitnami/zookeeper:latest'
@@ -18,7 +18,7 @@ services:
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
     networks:
-      - scmxpertlite_network
+      - scm_network
 
   kafka:
     image: 'bitnami/kafka:latest'
@@ -31,7 +31,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_HEAP_OPTS=-Xmx1G
     networks:
-      - scmxpertlite_network
+      - scm_network
 
   server:
     image: server_image:latest
@@ -40,21 +40,21 @@ services:
     depends_on:
       - kafka
     networks:
-      - scmxpertlite_network
+      - scm_network
 
   producer:
     image: producer_image:latest
     depends_on:
       - server
     networks:
-      - scmxpertlite_network
+      - scm_network
 
   consumer:
     image: consumer_image:latest
     depends_on:
       - producer
     networks:
-      - scmxpertlite_network
+      - scm_network
 
 networks:
-  scmxpertlite_network:
+  scm_network:

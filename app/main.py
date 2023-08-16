@@ -29,11 +29,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 
-
-
-
-
-
+#To redirect to home page if 401 Unauthorized raises i.e.,  the request requires authentication, and the client must provide valid credentials.
 @app.exception_handler(HTTPException)
 async def redirect_to_login(request: Request, exc: HTTPException):
     if exc.status_code == 401:
@@ -41,8 +37,7 @@ async def redirect_to_login(request: Request, exc: HTTPException):
     raise exc
 
 
-
-
+#To include routers
 app.include_router(signup_router)
 app.include_router(login)
 app.include_router(shipment)
@@ -51,19 +46,4 @@ app.include_router(forgetpswd)
 
 
 
-
-# @app.get("/signup")
-# async def get_signup(request: Request):
-#     return templates.TemplateResponse("signup.html",{"request":request})
-
-@app.get("/gmail_authenticate")
-async def gmail_authentication(request: Request):
-    return templates.TemplateResponse("gmail_authenticate.html",{"request":request})
-
-
-
-
-@app.get("/new_pswd")
-async def new_pswd(request: Request):
-    return templates.TemplateResponse("new_pswd.html", {"request": request})
 

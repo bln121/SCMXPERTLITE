@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>New Password</title>
@@ -23,7 +23,7 @@
             <!--Error message display-->
             <div class="error">{%if error_msg%}{{error_msg}}{%endif%}</div>
             <div class="success">{%if updated_msg%}{{updated_msg}}{%endif%}</div>
-            <!-- <p>Your new password must be different to previously used passwords.</p> -->
+
             <!-- New Password -->
             <label for="new password">New password</label>
             <div class="input-container">
@@ -56,13 +56,12 @@
                     required>
 
 
-                <!-- <span id="password_match_message"></span> -->
                 <span onclick="myFunction1()">
                     <i id="confirm_password_hide1" class="fa fa-eye" style="font-size:20px; padding-top: 8px;"></i>
                     <i id="confirm_password_hide2" class="fa fa-eye-slash" style="font-size:20px; padding-top: 8px"></i>
                 </span>
             </div>
-            <!-- <input type="password" id="confirm_password" name="confirm password" required> -->
+
             <button type="submit">Reset Password</button>
 
             <p class="back-to-login"><a href="/login">Back to Login</a></p>

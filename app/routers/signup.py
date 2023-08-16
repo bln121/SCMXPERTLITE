@@ -8,8 +8,6 @@ from fastapi.staticfiles import StaticFiles
 
 
 from fastapi import APIRouter
-
-#from routers.database import collection_users
 from dotenv import load_dotenv
 from config.config import SETTING
 
@@ -61,7 +59,7 @@ def signup(request: Request, username: str = Form(...), email: str = Form(...), 
                 "Role": "User"
             }
             #insertion of data
-            result = collection_users.insert_one(user_data)
+            collection_users.insert_one(user_data)
             return templates.TemplateResponse("signup.html", {"request": request, "success": "Account created successfully"})
            
     except HTTPException as e:

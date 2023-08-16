@@ -7,9 +7,6 @@ from fastapi.security.utils import get_authorization_scheme_param
 import datetime as dt
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-
-
-
 from fastapi.logger import logger
 from fastapi.responses import HTMLResponse, RedirectResponse
 
@@ -17,18 +14,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 
-
-
 from pydantic import BaseModel, EmailStr
 from fastapi import FastAPI, Request, HTTPException,responses,Form
 from fastapi.responses import HTMLResponse
-#from fastapi.templating import Jinja2Templates
 from pymongo import MongoClient
-#from fastapi.staticfiles import StaticFiles
+
 
 from starlette.status import HTTP_302_FOUND, HTTP_401_UNAUTHORIZED
 from fastapi import APIRouter
-#from routers.database import collection_users,collection_stream_data
+
 from models.models import User
 from dotenv import load_dotenv
 from config.config import SETTING
@@ -347,7 +341,6 @@ async def dashboard(request: Request, current_user: User = Depends(get_current_u
 async def myaccount(request: Request, current_user: User = Depends(get_current_user_from_cookie)):
     try:
         if current_user is None:
-            # raise HTTPException(status_code=401, detail="You must be logged in to access this page.")
             return RedirectResponse(url="/login")
         else:
             #print("current_user",current_user)
@@ -384,7 +377,6 @@ async def data_stream_post(request: Request, current_user: User = Depends(get_cu
      #print(device_id)
     try:
         if current_user is None:
-            # raise HTTPException(status_code=401, detail="You must be logged in to access this page.")
             return RedirectResponse(url="/login")
         elif not isinstance(device_id,int):
             raise Exception("invalid option")
@@ -425,8 +417,8 @@ def post_user_manage(request: Request, current_user : User=Depends(get_current_u
     try:
         if collection_users.find_one({"username":username}):
             if current_user["Role"]=="Super admin":
-                # user_role=user_role.capitalize
-                result = collection_users.update_one({"username":username}, { '$set': { 'Role': user_role} })
+              
+                collection_users.update_one({"username":username}, { '$set': { 'Role': user_role} })
                 return templates.TemplateResponse("user_management.html",{"request":request, "success":"Updated Successfully."})
             else:
                 return templates.TemplateResponse("user_management.html",{"request":request, "message":"Only Super admins can change user role."})

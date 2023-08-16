@@ -7,8 +7,6 @@ from pymongo import MongoClient
 from fastapi.staticfiles import StaticFiles
 
 from fastapi import APIRouter
-
-#from routers.database import collection_users
 from models.models import User
 from routers.login import get_current_user_from_cookie
 from config.config import SETTING
@@ -50,7 +48,7 @@ async def forget_password(request: Request,user_email: str=Form(...)):
         else:
             global otp
             otp = generate_otp()
-        # otp="bln"#comment this
+            # otp="bln"#comment this
             connect_server = smtp_connection(otp, receiver_email)# remove comment
             return templates.TemplateResponse("gmail_authenticate.html", {"request": request})
 
@@ -94,7 +92,6 @@ def smtp_connection(otp,receiver_email):
     password="qwaccvzyenijymwh"
     server.login(email,password)
     msg='Hello, Your OTP is '+str(otp)
-    #sender='lakshminarayanabachu802@gmail.com'  #write email id of sender
     receiver=receiver_email #write email of receiver
     server.sendmail(email,receiver,msg)
     server.quit()
@@ -115,8 +112,8 @@ def update_password(request: Request,new_password :str=Form(...),confirm_passwor
     
     #Fetch data from db
     get_user_data=collection_users.find_one({"email":receiver_email})
-  
-    msg=  checkpswd(get_user_data["password"], new_password, request)
+    # msg=  checkpswd(get_user_data["password"], new_password, request)
+    msg=  checkpswd(get_user_data["password"], new_password)
  
     try:
         if msg=="previous password":
@@ -130,7 +127,7 @@ def update_password(request: Request,new_password :str=Form(...),confirm_passwor
              update_result = collection_users.update_one({"email": receiver_email},{"$set": {"password": hashed_pswd}})
              
              return templates.TemplateResponse("pswd_succesful.html", {"request": request})
-             #raise Exception("Password is updated successfully!")      
+            
         
         
     
@@ -143,7 +140,8 @@ def update_password(request: Request,new_password :str=Form(...),confirm_passwor
 
 
 #To check either previous password and new password same or not
-def checkpswd( passw, new_passw,request: Request):#passw in db, user pswd given in login form
+# def checkpswd( passw, new_passw,request: Request):
+def checkpswd( passw, new_passw):#passw in db, user pswd given in login form
     # Retrieve the hashed password from the database
     stored_hashed_password = passw
 
@@ -158,8 +156,6 @@ def checkpswd( passw, new_passw,request: Request):#passw in db, user pswd given 
     else:
         message="different password"
         
-
-    #return templates.TemplateResponse("login.html", {"request": request, "message":message})
     return message
 
 
@@ -174,6 +170,19 @@ def pswd_encrypt(new_password):
     hashed_password = bcrypt.hashpw(password, salt)
 
     return hashed_password
+
+
+#Gmail authencation 
+@router.get("/gmail_authenticate")
+async def gmail_authentication(request: Request):
+    return templates.TemplateResponse("gmail_authenticate.html",{"request":request})
+
+
+
+
+@router.get("/new_pswd")
+async def new_pswd(request: Request):
+    return templates.TemplateResponse("new_pswd.html", {"request": request})
 
 
 @router.get("/pswd_successful")

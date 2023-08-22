@@ -83,7 +83,7 @@ class LoginForm:
         # authenticate_user(self.login_user, self.login_password)
         captcha_response = form.get("g-recaptcha-response")
         if not captcha_response:
-            self.errors.append("Please click the Google reCAPTCHA.")
+            self.errors.append("Please Verify captcha.")
         if not self.errors:
             return True
         return False  

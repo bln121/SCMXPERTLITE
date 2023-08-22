@@ -21,20 +21,15 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 
 #To create instance of fastapi
+#This app object is the main point of interaction of the application with the client browser. The uvicorn server uses this object to listen to client’s request.
 app = FastAPI()
+
+#To access the html folder
 templates = Jinja2Templates(directory="html")
 
 #To add css to html
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-
-
-#To redirect to home page if 401 Unauthorized raises i.e.,  the request requires authentication, and the client must provide valid credentials.
-@app.exception_handler(HTTPException)
-async def redirect_to_login(request: Request, exc: HTTPException):
-    if exc.status_code == 401:
-        return HTMLResponse("<script>window.location.href = '/';</script>")
-    raise exc
 
 
 #To include routers

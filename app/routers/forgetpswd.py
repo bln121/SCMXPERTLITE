@@ -65,7 +65,7 @@ async def forget_paswd_show(request: Request):
 
                         
 
-#---------------------------------------#gmail authentication------------- ---------------------#
+#---------------------------------------#gmail authentication-----------------------------------------------#
 @router.post("/gmail_authenticate")
 async def gmail_authentication(request: Request,user_otp : str =Form(...)):
     global otp
@@ -112,7 +112,7 @@ def update_password(request: Request,new_password :str=Form(...),confirm_passwor
     
     #Fetch data from db
     get_user_data=collection_users.find_one({"email":receiver_email})
-    # msg=  checkpswd(get_user_data["password"], new_password, request)
+    #msg=  checkpswd(get_user_data["password"], new_password, request)
     msg=  checkpswd(get_user_data["password"], new_password)
  
     try:
@@ -140,7 +140,7 @@ def update_password(request: Request,new_password :str=Form(...),confirm_passwor
 
 
 #To check either previous password and new password same or not
-# def checkpswd( passw, new_passw,request: Request):
+#def checkpswd( passw, new_passw, request: Request):
 def checkpswd( passw, new_passw):#passw in db, user pswd given in login form
     # Retrieve the hashed password from the database
     stored_hashed_password = passw

@@ -25,6 +25,9 @@ while True:
     try:
         print("connected with", addr)
         
+
+        #random.uniform() method to return a random float number in given range
+        #round() is to return no. of decimal number to return.
         data =[{
         "Battery_Level":round(random.uniform(5,6),2),
         "Device_Id":1156053076,
